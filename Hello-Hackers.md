@@ -1,4 +1,4 @@
-#Intro to Commands
+# Intro to Commands
 
 In this challenge, you will invoke your first command! When you type a command and hit enter, the command will be invoked, as so:
 
@@ -24,6 +24,10 @@ $ hello
 ```
 pwn.college{0paRzY0Bms8w38dz0-z7mx-iV6b.QX3YjM1wCO0AzNzEzW}
 ```
+
+### References:
+
+- none
 
 ### Notes:
 
@@ -69,6 +73,10 @@ $ hello hackers
 pwn.college{Ec0HqCfPJTPKNB8bhYKCAvGxksO.QX4YjM1wCO0AzNzEzW}
 ```
 
+### References:
+
+- none
+
 ### Notes:
 
 -When you type a line of text and hit enter, the shell actually parses your input into a command and its arguments.
@@ -94,6 +102,10 @@ Shell has history of every command so flag is already in it.
 ```
 pwn.college{ER0rMWO3IlCwuRifpLiQdl1Enan.0lNzEzNxwCO0AzNzEzW}
 ```
+
+### References:
+
+- none
 
 ### Notes:
 
