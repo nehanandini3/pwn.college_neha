@@ -13,8 +13,7 @@ In this level, invoke the hello command to get the flag! Keep in mind: commands 
 
 ## Solution:
 
-Invoke the ```hello``` command to print the flag.
-
+- Invoke the ```hello``` command to print the flag.
 ```sh
 $ hello
 ```
@@ -61,8 +60,7 @@ In this challenge, to get the flag, you must run the hello command (NOT the echo
 
 ## Solution:
 
-Invoke the ```hello``` command with ```hackers``` command to print the flag.
-
+- Invoke the ```hello``` command with ```hackers``` command to print the flag.
 ```sh
 $ hello hackers
 ```
@@ -79,9 +77,9 @@ pwn.college{Ec0HqCfPJTPKNB8bhYKCAvGxksO.QX4YjM1wCO0AzNzEzW}
 
 ### Notes:
 
--When you type a line of text and hit enter, the shell actually parses your input into a command and its arguments.
--The first word is the command, and the subsequent words are arguments.
--```echo``` is a simple command that "echoes" all of its arguments back out onto the terminal
+- When you type a line of text and hit enter, the shell actually parses your input into a command and its arguments.
+- The first word is the command, and the subsequent words are arguments.
+- ```echo``` is a simple command that "echoes" all of its arguments back out onto the terminal
 
 
 
@@ -93,9 +91,8 @@ You can scroll through those saved commands with the up/down arrow keys, and we'
 
 ## Solution:
 
-Shell has history of every command so flag is already in it. 
-
-```up``` arrow to get last command entered
+- Shell has history of every command so flag is already in it. 
+- ```up``` arrow to get last command entered
 
 ## Flag: 
 
@@ -109,8 +106,8 @@ pwn.college{ER0rMWO3IlCwuRifpLiQdl1Enan.0lNzEzNxwCO0AzNzEzW}
 
 ### Notes:
 
--every command invoked by the user is saved in the shell
--scrolling through those saved commands with the up/down arrow keys can be done
+- Every command invoked by the user is saved in the shell
+- Scrolling through those saved commands with the up/down arrow keys can be done
 
 
 
