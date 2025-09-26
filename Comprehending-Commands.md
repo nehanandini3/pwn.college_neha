@@ -596,9 +596,79 @@ pwn.college{wxAA1AARM8VobUVnfT-LBNEx7QZ.QXyMDO0wCO0AzNzEzW}
 ### Notes:
 
 - Use `find` command to find the file.
-- The find command takes optional arguments describing the search criteria and the search location.
-- If a search criteria, find matches every file.
-- If you don't specify a search location, find uses the current working directory (.)
+- The `find` command takes optional arguments describing the search criteria and the search location.
+- If no search criteria given, `find` matches every file.
+- If no specific search location given, `find` uses the current working directory (`.`).
+- Multiple `flag` files so need to check each one of them.
+- `find` takes a while so patience is the key.
+
+
+
+# Linking Files
+
+If you use Linux (or computers) for any reasonable length of time to do any real work, you will eventually run into some variant of the following situation: you want two programs to access the same data, but the programs expect that data to be in two different locations. Luckily, Linux provides a solution to this quandary: links.
+
+Links come in two flavors: hard and soft (also known as symbolic) links. We'll differentiate the two with an analogy:
+
+- A hard link is when you address your apartment using multiple addresses that all lead directly to the same place (e.g., `Apt 2` vs `Unit 2`).
+- A soft link is when you move apartments and have the postal service automatically forward your mail from your old place to your new place.
+
+In a filesystem, a file is, conceptually, an address at which the contents of that file live. A hard link is an alternate address that indexes that data --- accesses to the hard link and accesses to the original file are completely identical, in that they immediately yield the necessary data. A soft/symbolic link, instead, contains the original file name. When you access the symbolic link, Linux will realize that it is a symbolic link, read the original file name, and then (typically) automatically access that file. In most cases, both situations result in accessing the original data, but the mechanisms are different.
+
+Hard links sound simpler to most people (case in point, I explained it in one sentence above, versus two for soft links), but they have various downsides and implementation gotchas that make soft/symbolic links, by far, the more popular alternative.
+
+In this challenge, we will learn about symbolic links (also known as symlinks). Symbolic links are created with the `ln` command with the `-s` argument, like so:
+
+```sh
+hacker@dojo:~$ cat /tmp/myfile
+This is my file!
+hacker@dojo:~$ ln -s /tmp/myfile /home/hacker/ourfile
+hacker@dojo:~$ cat ~/ourfile
+This is my file!
+hacker@dojo:~$
+```
+You can see that accessing the symlink results in getting the original file contents! Also, you can see the usage of `ln -s`. Note that the original file path comes before the link path in the command!
+
+A symlink can be identified as such with a few methods. For example, the `file` command, which takes a filename and tells you what type of file it is, will recognize symlinks:
+
+```sh
+hacker@dojo:~$ file /tmp/myfile
+/tmp/myfile: ASCII text
+hacker@dojo:~$ file ~/ourfile
+/home/hacker/ourfile: symbolic link to /tmp/myfile
+hacker@dojo:~$
+```
+Okay, now you try it! In this level the flag is, as always, in `/flag`, but `/challenge/catflag` will instead read out `/home/hacker/not-the-flag`. Use the symlink, and fool it into giving you the flag!
+
+## Solution:
+
+- `ln -s /flag /home/hacker/not-the-flag` to create the symbolic link between them.
+- `/challenge/run` to give the flag.
+
+## Flag: 
+
+```
+pwn.college{Q2uwBDZZPSFjQZ1u3hMKtZWy7GL.QX5ETN1wCO0AzNzEzW}
+```
+
+### References:
+
+- https://www.youtube.com/watch?v=m55AtwjBXpE&list=PL-ymxv0nOtqqRAz1x90vxNbhmSkeYxHVC
+
+### Notes:
+
+- Links are of two types : hard and soft (also known as symbolic) links.
+- A hard link is an alternate address that indexes that data, accesses to the hard link and accesses to the original file are completely identical, in that they immediately yield the necessary data.
+- A soft/symbolic link, instead, contains the original file name.
+- When a symbolic link is accessed, Linux will realize that it is a symbolic link, read the original file name, and then (typically) automatically access that file.
+- In most cases, both situations result in accessing the original data, but the mechanisms are different.
+- Symbolic links are also known as symlinks.
+- Symbolic links are created with the `ln` command with the `-s` argument.
+- `ln -s` command is used to create symbolic links.
+- Symbolic link syntax: `ln -s <original path> <link path>`
+
+
+
 
 
 
