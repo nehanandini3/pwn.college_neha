@@ -420,6 +420,191 @@ pwn.college{Y51IbO2iJh2Sr8Zpsh2eBbOluOs.QXwUDO0wCO0AzNzEzW}
 
 
 
+# An Epic Filesystem Quest
+
+With your knowledge of `cd`, `ls`, and `cat`, we're ready to play a little game!
+
+We'll start it out in `/`. Normally:
+
+```sh
+hacker@dojo:~$ cd /
+hacker@dojo:/$ ls
+bin   challenge  etc   home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  dev        flag  lib   lib64  media   opt  root  sbin  sys  usr
+```
+That's a lot of contents! One day, you will be quite familiar with them, but already, you might recognize the `flag` file and the challenge `directory`.
+
+In this challenge, I have hidden the flag! Here, you will use `ls` and `cat` to follow my breadcrumbs and find it! Here's how it'll work:
+
+Your first clue is in `/`. Head on over there.
+Look around with `ls`. There'll be a file named HINT or CLUE or something along those lines!
+`cat` that file to read the clue!
+Depending on what the clue says, head on over to the next directory (or don't!).
+Follow the clues to the flag!
+Good luck!
+
+## Solution:
+
+- It is mentioned to go to `/` first so `cd /`.
+- Use `ls` and then `cat SECRET` as secret is similar to hint/clue.
+- `cd /usr/share/icons/Adwaita/32x32/devices` and `ls -a` as its mentioned the next clue is hidden.
+- `cat .WHISPER` gives the next clue which is also hidden, so after `cd /usr/share/racket/pkgs/srfi-lib/srfi/%3a71`, enter `ls -a`.
+- `cat .TRACE` yet again gives the next clue which is hidden, so use `cd /usr/share/javascript/mathjax/jax/output/SVG/fonts/STIX-Web/Shapes/Bold` and `ls -a`.
+- `cat .ALERT` which leads to `cd /usr/lib/python3/dist-packages/docutils/utils/__pycache__` and then `ls -a`.
+- `cat BLUEPRINT` as except for BLUEPRINT file, all other files were a .pyc file.
+- This gives the next clue which is trapped and since it self-destruct if `cd` is used, `ls -a /usr/share/racket/pkgs/parser-tools-doc/parser-tools/compiled` leads to using `cat /usr/share/racket/pkgs/parser-tools-doc/parser-tools/compiled/DOSSIER-TRAPPED`.
+- DOSSIER-TRAPPED is used as it does not have a file extension, unlike the others.
+- This returns the next clue which is delayed, `cd` has to be used.
+- `cd /usr/share/icons/hicolor/48x48/stock/code` and then `ls -a` which leads to `cat EVIDENCE`.
+- The next clue is delayed.
+- `cd /usr/share/javascript/mathjax/unpacked/jax/output/HTML-CSS/fonts/Asana-Math/Size4/Regular` and then `ls -a` that leads to `cat BRIEF`.
+- The next clue is trapped.
+- `ls -a /usr/share/racket/pkgs/drracket/drracket/private/syncheck` and then `cat /usr/share/racket/pkgs/drracket/drracket/private/syncheck/CLUE-TRAPPED` as CLUE-TRAPPED matches the given condition.
+- Voila, the previous command prints the flag!
+
+## Flag: 
+
+```
+pwn.college{szzRGdoGiIcbOqG-8HqMeMwaZAw.QX5IDO0wCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- Pay close attention to files and directories while using ls.
+- Pay close attention to each clue.
+
+
+
+# Making Directories
+
+We can create files. How about directories? You make directories using the `mkdir` command. Then you can stick files in there!
+
+Watch:
+
+```sh
+hacker@dojo:~$ cd /tmp
+hacker@dojo:/tmp$ ls
+hacker@dojo:/tmp$ ls
+hacker@dojo:/tmp$ mkdir my_directory
+hacker@dojo:/tmp$ ls
+my_directory
+hacker@dojo:/tmp$ cd my_directory
+hacker@dojo:/tmp/my_directory$ touch my_file
+hacker@dojo:/tmp/my_directory$ ls
+my_file
+hacker@dojo:/tmp/my_directory$ ls /tmp/my_directory/my_file
+/tmp/my_directory/my_file
+hacker@dojo:/tmp/my_directory$
+```
+Now, go forth and create a `/tmp/pwn` directory and make a `college` file in it! Then run `/challenge/run`, which will check your solution and give you the flag!
+
+## Solution:
+
+- `cd /tmp` to go to it first.
+- `mkdir pwn` to create a directory named pwn in tmp.
+- `ls` to verify that pwn was created.
+- `cd pwn` to go into /tmp/pwn.
+- `touch college` to create the file called college.
+- `ls` to verify the file was created.
+- `/challenge/run` to check the solution and give the flag.
+
+## Flag: 
+
+```
+pwn.college{4tITYb2ZD_fPiQUFKdrDuKKFMG9.QXxMDO0wCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- `mkdir` is used to create directories
+
+
+
+# Finding Files
+
+So now we know how to list, read, and create files. But how do we find them? We use the `find` command!
+
+The `find` command takes optional arguments describing the search criteria and the search location. If you don't specify a search criteria, `find` matches every file. If you don't specify a search location, `find` uses the current working directory (`.`). For example:
+
+```sh
+hacker@dojo:~$ mkdir my_directory
+hacker@dojo:~$ mkdir my_directory/my_subdirectory
+hacker@dojo:~$ touch my_directory/my_file
+hacker@dojo:~$ touch my_directory/my_subdirectory/my_subfile
+hacker@dojo:~$ find
+.
+./my_directory
+./my_directory/my_subdirectory
+./my_directory/my_subdirectory/my_subfile
+./my_directory/my_file
+hacker@dojo:~$
+```
+And when specifying the search location:
+
+```sh
+hacker@dojo:~$ find my_directory/my_subdirectory
+my_directory/my_subdirectory
+my_directory/my_subdirectory/my_subfile
+hacker@dojo:~$
+```
+And, of course, we can specify the criteria! For example, here, we filter by name:
+
+```sh
+hacker@dojo:~$ find -name my_subfile
+./my_directory/my_subdirectory/my_subfile
+hacker@dojo:~$ find -name my_subdirectory
+./my_directory/my_subdirectory
+hacker@dojo:~$
+```
+You can search the whole filesystem if you want!
+
+```sh
+hacker@dojo:~$ find / -name hacker
+/home/hacker
+hacker@dojo:~$
+```
+Now it's your turn. I've hidden the flag in a random directory on the filesystem. It's still called `flag`. Go find it!
+
+Several notes. First, there are other files named `flag` on the filesystem. Don't panic if the first one you try doesn't have the actual flag in it. Second, there're plenty of places in the filesystem that are not accessible to a normal user. These will cause `find` to generate errors, but you can ignore those; we won't hide the flag there! Finally, `find` can take a while; be patient!
+
+## Solution:
+
+- `find / -name flag` to search for flag in home directory but all the directories' permission is denied.
+- `find /tmp -name flag` and `find /challenge -name flag` also give permission denied. 
+- `find /usr -name flag` gives 2 directories. (tmp,challenge and usr directories are checked as they were mentioned previously too)
+- `cat /usr/local/lib/python3.8/dist-packages/pwnlib/flag` doesnt give the flag.
+- `cat /usr/share/doc/libdrm-amdgpu1/flag` gives the flag.
+
+## Flag: 
+
+```
+pwn.college{wxAA1AARM8VobUVnfT-LBNEx7QZ.QXyMDO0wCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- Use `find` command to find the file.
+- The find command takes optional arguments describing the search criteria and the search location.
+- If a search criteria, find matches every file.
+- If you don't specify a search location, find uses the current working directory (.)
+
+
+
+
+
+
 
 
 
