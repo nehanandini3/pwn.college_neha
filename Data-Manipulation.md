@@ -33,7 +33,7 @@ pwn.college{o9Oqi8msR0UpgFcpcuBV8MJ0F5B.01MxEzNxwCO0AzNzEzW}
 
 ### Notes:
 
--`tr` command is used to translate characters from one character to another.
+- `tr` command is used to translate characters from one character to another.
 - The first character on the left of `|` is the character to be translated into the character to the right of it.
 
 # Deleting characters
