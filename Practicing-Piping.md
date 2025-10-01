@@ -664,11 +664,12 @@ HINT: The blocking behavior of FIFOs makes it hard to solve this challenge in a 
 - `mkfifo /tmp/flag_fifo` in the first terminal to creates a named pipe.
 - `cat /tmp/flag_fifo` in the second terminal to start reading from the FIFO.
 - `/challenge/run > /tmp/flag_fifo` in the first terminal print the flag.
+- or `cat /tmp/flag_fifo & /challenge/run > /tmp/flag_fifo` in the first terminal right after the first step gives the flag.
 
 ## Flag: 
 
 ```
-pwn.college{AJYnonP_wuqp7DXM0UVlogc7ESw.01MzMDOxwCN3kjNzEzW}
+pwn.college{UD-IpcPg36WOS3o_fZwhBEcJC52.01MzMDOxwCO0AzNzEzW}
 ```
 
 ### References:
