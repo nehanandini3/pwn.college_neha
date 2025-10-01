@@ -280,12 +280,15 @@ Try it now! Like the last level, this level will overwhelm you with output, but 
 
 ## Solution:
 
-Describe your thought process and solve, write as much as possible with steps:
+- `/challenge/run 2>&1 | grep "pwn.college{"` gives the flag.
+- `2>&1` redirects stderr to stdout.
+- Both outputs are combined into stdout.
+- The combined output is piped to grep.
 
 ## Flag: 
 
 ```
-pwn.college{}
+pwn.college{sc0I-vTwF0Xtng10EKzVkI9XtHe.QX1ATO0wCO0AzNzEzW}
 ```
 
 ### References:
@@ -294,7 +297,113 @@ pwn.college{}
 
 ### Notes:
 
-Include things you learnt, alternate methods or mistakes you made while solving
+- The `>` operator redirects a given file descriptor to a file, and `2>` redirects to fd 2, which is standard error.
+- The `|` operator redirects only standard output to another program, and there is no `2|` form of the operator.
+- It can only redirect standard output (file descriptor 1).
+- The shell has a >& operator, which redirects a file descriptor to another file descriptor.
+- This means that there is a two-step process to `grep` through errors.
+- First, the standard error is redirected to standard output (`2>& 1`) and then pipe the now-combined stderr and stdout as normal (`|`).
+
+
+
+# Filtering with grep -v
+
+The `grep` command has a very useful option: `-v` (invert match). While normal `grep` shows lines that MATCH a pattern, `grep -v` shows lines that do NOT match a pattern:
+
+```sh
+hacker@dojo:~$ cat data.txt
+hello hackers!
+hello world!
+hacker@dojo:~$ cat data.txt | grep -v world
+hello hackers!
+hacker@dojo:~$
+```
+Sometimes, the only way to filter to just the data you want is to filter out the data you don't want. In this challenge, `/challenge/run` will output the flag to stdout, but it will also output over 1000 decoy flags (containing the word `DECOY` somewhere in the flag) mixed in with the real flag. You'll need to filter out the decoys while keeping the real flag!
+
+Use `grep -v` to filter out all the lines containing "DECOY" and reveal the real flag!
+
+## Solution:
+
+- `/challenge/run | grep -v "DECOY"` prints the flag.
+- `/challenge/run` generates all flags both real and decoys.
+- Each line is passed to `grep -v "DECOY"`.
+- Lines containing "DECOY" are filtered out.
+- Only the line without "DECOY" (the real flag) passes through.
+
+## Flag: 
+
+```
+pwn.college{QciRz-F4x3uDgNMZDAtV-nMdBfF.0FOxEzNxwCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- `grep -v` excludes lines matching a pattern instead of including them.
+- Sometimes, the only way to filter to get just the data required is to filter out the data not required.
+
+
+
+# Duplicating Piped Data with tee
+
+When you pipe data from one command to another, you of course no longer see it on your screen. This is not always desired: for example, you might want to see the data as it flows through between your commands to debug unintended outcomes (e.g., "why did that second command not work???").
+
+Luckily, there is a solution! The `tee` command, named after a "T-splitter" from plumbing pipes, duplicates data flowing through your pipes to any number of files provided on the command line. For example:
+
+```sh
+hacker@dojo:~$ echo hi | tee pwn college
+hi
+hacker@dojo:~$ cat pwn
+hi
+hacker@dojo:~$ cat college
+hi
+hacker@dojo:~$
+```
+As you can see, by providing two files to `tee`, we ended up with three copies of the piped-in data: one to stdout, one to the `pwn` file, and one to the `college` file. You can imagine how you might use this to debug things going haywire:
+
+```sh
+hacker@dojo:~$ command_1 | command_2
+Command 2 failed!
+hacker@dojo:~$ command_1 | tee cmd1_output | command_2
+Command 2 failed!
+hacker@dojo:~$ cat cmd1_output
+Command 1 failed: must pass --succeed!
+hacker@dojo:~$ command_1 --succeed | command_2
+Commands succeeded!
+```
+Now, you try it! This process' `/challenge/pwn` must be piped into `/challenge/college`, but you'll need to intercept the data to see what `pwn` needs from you!
+
+## Solution:
+
+- `/challenge/pwn | tee intercepted_data.txt | /challenge/college` duplicates pipe data to both stdout and files.
+- `/challenge/pwn` generates output.
+- Then `tee` receives this output and displays it on stdout.
+- It then gets savesd it to `intercepted_data.txt`.
+- Then it gets passed along to `/challenge/college`.
+- It shows that a secret code is needed.
+- `cat intercepted_data.txt` shows the secret code which is `AtF6yf_U`.
+- `/challenge/pwn --secret AtF6yf_U | /challenge/college` then prints the flag.
+
+## Flag: 
+
+```
+pwn.college{AtF6yf_UtV299Vb0LjNi_iSfqTo.QXxITO0wCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- The `tee` command, named after a "T-splitter" from plumbing pipes, duplicates data flowing through pipes to any number of files provided on the command line. 
+
+
+
+
 
 
 
