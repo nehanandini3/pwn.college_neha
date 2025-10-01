@@ -19,7 +19,7 @@ Now, you try it! In this level, `/challenge/run` will print the flag but will sw
 ## Solution:
 
 - Its mentioned that `tr` command can be used to translate characters from the first character mentioned to the second character.
-- To translate lower case characters to upper case and vice-versa in the file `/challenge/run`, use the command `/challenge/run | tr '[A-Z][a-z]' '[a-z][A-Z]'' to get the flag. 
+- To translate lower case characters to upper case and vice-versa in the file `/challenge/run`, use the command `/challenge/run | tr '[A-Z][a-z]' '[a-z][A-Z]'` to get the flag. 
 
 ## Flag: 
 
