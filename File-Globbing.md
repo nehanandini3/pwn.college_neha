@@ -239,12 +239,15 @@ Now, let's put the previous levels together! We put a few happy, but diversely-n
 
 - This challenge requires to go to `/challenge/file`s and create a single glob pattern (6 characters or less) that matches the files "challenging", "educational", and "pwning".
 - All the 3 filenames contain the letter "n" but `*n*` would match too many files.
-- 
+- A character set for the first letter is used as there is no big common factor between the 3.
+- `[cep]*` is used as it matches for the 3 files. `[cep]` matches "c", "e", or "p" and `*` matches rest of the filename 
+- `cd /challenge/files` to change the directory.
+- `/challenge/run [cep]*` gives the flag.
 
 ## Flag: 
 
 ```
-pwn.college{}
+pwn.college{Qe4pfQmCdduPlrfTLq72q24ETes.QX1IDO0wCO0AzNzEzW}
 ```
 
 ### References:
@@ -253,7 +256,178 @@ pwn.college{}
 
 ### Notes:
 
-Include things you learnt, alternate methods or mistakes you made while solving
+- The `*` command is used as a wildcard to replace an argument with a specified file.
+- The `?` command acts like `*` but only matches one character.
+- The `[]` command is similar to `?` but rather, gives a set of characters inside the brackets, to match the argument of the file.
+
+
+
+# Exclusionary Globbing
+
+Sometimes, you want to filter out files in a glob! Luckily, `[]` helps you do just this. If the first character in the brackets is a `!` or (in newer versions of bash) a `^`, the glob inverts, and that bracket instance matches characters that aren't listed. For example:
+
+```sh
+hacker@dojo:~$ touch file_a
+hacker@dojo:~$ touch file_b
+hacker@dojo:~$ touch file_c
+hacker@dojo:~$ ls
+file_a	file_b	file_c
+hacker@dojo:~$ echo Look: file_[!ab]
+Look: file_c
+hacker@dojo:~$ echo Look: file_[^ab]
+Look: file_c
+hacker@dojo:~$ echo Look: file_[ab]
+Look: file_a file_b
+```
+Armed with this knowledge, go forth to `/challenge/files` and run `/challenge/run` with all files that don't start with `p`, `w`, or `n`!
+
+NOTE: The `!` character has a different special meaning in bash when it's not the first character of a `[]` glob, so keep that in mind if things stop making sense! `^` does not have this problem, but is also not compatible with older shells.
+
+## Solution:
+
+- This challenge requires to go to `/challenge/files` and run `/challenge/run` with all files that don't start with the letters `p`, `w`, or `n`.
+- The pattern `[!pwn]` matches any single character that is NOT `p`, `w`, or `n`.
+- `cd /challenge/files` to change the directory.
+- `/challenge/run [!pwn]*` prints the flag.
+
+## Flag: 
+
+```
+pwn.college{M5H8Hs0xmFXLmoRVnsEC_i4bKj1.QX2IDO0wCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- If the first character in the brackets is a `!` or (in newer versions of bash) a `^`, the glob inverts, and that bracket instance matches characters that aren't listed.
+- `[!abc]` or `[^abc]` matches any character EXCEPT those listed.
+- The `!` character has a different special meaning in bash when it's not the first character of a `[]` glob.
+- `^` does not have this problem and does the same thing as `!` (i.e. negation function) but its more of a modern syntax so it is not compatible with older shells.
+
+
+
+# Tab Completion
+
+As tempting as it might be, using `*` to shorten what must be typed on the commandline can lead to mistakes. Your glob might expand to unintended files, and you might not spot it until the `rm` command is already running! No one is safe from this style of error.
+
+A safer alternative when you are trying to specify a specific target is tab completion. If you hit tab in the shell, it'll try to figure out what you're going to type and automatically complete it. Auto-completion is super useful, and this challenge will explore its use in specifying files.
+
+This challenge has copied the flag into `/challenge/pwncollege`, and you can freely `cat` that file. But you can't type the filename: we used some serious trickery to make sure that you must tab-complete it. Try it out!
+
+```sh
+hacker@dojo:~$ ls /challenge
+DESCRIPTION.md  pwncollege
+hacker@dojo:~$ cat /challenge/pwncollege
+cat: /challenge/pwncollege: No such file or directory
+hacker@dojo:~$ cat /challenge/pwn<TAB>
+pwn.college{HECK YEAH}
+hacker@dojo:~$
+```
+When you hit that tab key, the name will expand and you'll be able to read the file. Good luck!
+
+## Solution:
+
+- `ls /challenge` to see all the files in it.
+- `cat /challenge/p` or `cat /challenge/pwn` and then pressing on tab gives the flag.
+
+## Flag: 
+
+```
+pwn.college{MyUAl2B3VmJb17wK264OxP-VKXR.0FN0EzNxwCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- Using `*` to shorten what must be typed on the commandline can lead to mistakes.
+- The glob might expand to unintended files, and it might not be spotted it until the `rm` command is already running
+- Tab key can be used in the shell to autocomplete.
+- Tab completion happens in the shell before the command runs.
+- Shell uses filesystem knowledge to complete paths.
+
+
+
+# Multiple Options for Tab Completion
+
+Consider the following situation:
+
+```sh
+hacker@dojo:~$ ls
+flag  flamingo  flowers
+hacker@dojo:~$ cat f<TAB>
+```
+There are multiple options! What happens?
+
+What happens varies based on the specific shell and its options. By default `bash` will auto-expand until the first point when there are multiple options (in this case, `fl`). When you hit tab a second time, it'll print out those options. Other shells and configurations, instead, will cycle through the options.
+
+This challenge has a `/challenge/files` directory with a bunch of files starting with `pwncollege`. Tab-complete from `/challenge/files/p` or so, and make your way to the flag!
+
+## Solution:
+
+- `cd /challenge/files` to changbe the directory.
+- `cat /challenge/files/p<TAB>` goes to `cat /challenge/files/pwn`.
+- Press tab again which shows a list of all the files that start with `pwn`.
+- Multiple matches including "pwncollege-flag" are among the options displayed.
+- Continue typing to "pwncollege-f" and tab twice to narrow down to files starting with that prefix.
+- Type further to pwncollege-fla and tab to see only two remaining options.
+- Complete to pwncollege-flag using Tab and execute to get the flag.
+
+## Flag: 
+
+```
+pwn.college{Es15YGIgu5IDy86-wcKLK4iRe2d.0lN0EzNxwCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- If multiple matches exist, what happens varies based on the specific shell and its options.
+- If multiple matches exist, by default bash will auto-expand to the longest common prefix.
+- When tab is presses a second time, it'll print out those options.
+- Other shells and configurations, instead, will cycle through the options.
+
+
+
+# Tab Completion on Command
+
+Tab completion is for more than files! You can also tab-complete commands. This level has a command that starts with `pwncollege`, and it'll give you the flag. Type `pwncollege` and hit the tab key to auto-complete it!
+
+NOTE: You can auto-complete any command, but be careful: callous auto-completes without double-checking the result can wreak havoc in your shell if you accidentally run the wrong commands!
+
+## Solution:
+
+- `pwncollege<tab>` autocompletes to `pwncollege-18828 ` which is then executed to reveal the flag.
+
+## Flag: 
+
+```
+pwn.college{YviUbF4kJVLKnzFIwsmmBAK4Vma.0VN0EzNxwCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- Tab completes commands too.
+- Tab works for executable commands in path, not just files and directories.
+- Shell searches all directories in path for matching executables.
+- Always verify the completed command before executing.
+
+
+
+
+
 
 
 
