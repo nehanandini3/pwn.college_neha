@@ -663,6 +663,7 @@ HINT: The blocking behavior of FIFOs makes it hard to solve this challenge in a 
 
 - `mkfifo /tmp/flag_fifo` in the first terminal to creates a named pipe.
 - `cat /tmp/flag_fifo` in the second terminal to start reading from the FIFO.
+- `/challenge/run > /tmp/flag_fifo` in the first terminal print the flag.
 
 ## Flag: 
 
