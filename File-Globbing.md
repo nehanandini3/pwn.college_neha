@@ -151,7 +151,7 @@ pwn.college{cYaK7hPsd7PC5qOEr_ypAz8zCpJ.QXzIDO0wCO0AzNzEzW}
 
 
 
-# Challenge 1 name
+# Matching Paths with []
 
 Globbing happens on a path basis, so you can expand entire paths with your globbed arguments. For example:
 
