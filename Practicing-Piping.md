@@ -668,7 +668,7 @@ HINT: The blocking behavior of FIFOs makes it hard to solve this challenge in a 
 ## Flag: 
 
 ```
-pwn.college{}
+pwn.college{AJYnonP_wuqp7DXM0UVlogc7ESw.01MzMDOxwCN3kjNzEzW}
 ```
 
 ### References:
