@@ -258,7 +258,8 @@ pwn.college{sROzRzjic2T-m2NNnSy260GMtf3.QX4cTN0wCO0AzNzEzW}
 
 ### Notes:
 
-- `read` command is used to get input from the user and stroe it in a variable.
+- `read` command is used to get input from the user and store it in a variable.
+- `-p` argument, can be used to specify a prompt.
 
 # Reading Files 
 
