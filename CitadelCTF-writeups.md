@@ -1,7 +1,9 @@
 # Omniscient Flag's Metadata
 
 Author: Indrath
+
 Category: Forensics
+
 Difficulty: Easy
 
 As you step into the second chamber, a figure manifests. Before you stands a forgotten deity, a dead god spoken of only in whispers. Known by countless names: “Apostle of Epilogue and Eternity”, “Lone Messiah” and many more lost to time.
