@@ -148,6 +148,7 @@ kMDItemWhereFroms                  = (
 - Use `open hidden.png` to view the flag.
   <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
 
+
   The exctracted file might not be a valid PNG or it might be corrupted.
 - Check what has actually been exctracted by running 
   ```sh
