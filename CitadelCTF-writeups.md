@@ -15,64 +15,64 @@ They leave nothing but a single image, a relic carrying his final secret. Hidden
 - This means that `exiftool` is not installed on the Mac.
 - So install it first using `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` to install homebrew first but since homebrew is already there, use `brew install exiftool` to install exiftool.
 - Run `exiftool challenge.jpg` to check its metadata.
-```sh
-mdls challenge.jpg
-_kMDItemDisplayNameWithExtensions  = "challenge.jpg"
-kMDItemAuthors                     = (
-    "kdj had a habit of hiding images within images"
-)
-kMDItemBitsPerSample               = 24
-kMDItemColorSpace                  = "RGB"
-kMDItemContentCreationDate         = 2025-10-04 12:40:00 +0000
-kMDItemContentCreationDate_Ranking = 2025-10-04 00:00:00 +0000
-kMDItemContentModificationDate     = 2025-10-04 12:40:01 +0000
-kMDItemContentType                 = "public.jpeg"
-kMDItemContentTypeTree             = (
-    "public.jpeg",
-    "public.image",
-    "public.data",
-    "public.item",
-    "public.content"
-)
-kMDItemDateAdded                   = 2025-10-04 12:40:00 +0000
-kMDItemDisplayName                 = "challenge.jpg"
-kMDItemDocumentIdentifier          = 0
-kMDItemFSContentChangeDate         = 2025-10-04 12:40:01 +0000
-kMDItemFSCreationDate              = 2025-10-04 12:40:00 +0000
-kMDItemFSCreatorCode               = ""
-kMDItemFSFinderFlags               = 0
-kMDItemFSHasCustomIcon             = (null)
-kMDItemFSInvisible                 = 0
-kMDItemFSIsExtensionHidden         = 0
-kMDItemFSIsStationery              = (null)
-kMDItemFSLabel                     = 0
-kMDItemFSName                      = "challenge.jpg"
-kMDItemFSNodeCount                 = (null)
-kMDItemFSOwnerGroupID              = 20
-kMDItemFSOwnerUserID               = 501
-kMDItemFSSize                      = 371263
-kMDItemFSTypeCode                  = ""
-kMDItemHasAlphaChannel             = 0
-kMDItemInterestingDate_Ranking     = 2025-10-04 00:00:00 +0000
-kMDItemKind                        = "JPEG image"
-kMDItemLastUsedDate                = 2025-10-04 12:42:39 +0000
-kMDItemLastUsedDate_Ranking        = 2025-10-04 00:00:00 +0000
-kMDItemLogicalSize                 = 371263
-kMDItemOrientation                 = 1
-kMDItemPhysicalSize                = 380928
-kMDItemPixelCount                  = 650880
-kMDItemPixelHeight                 = 1017
-kMDItemPixelWidth                  = 640
-kMDItemProfileName                 = "sRGB IEC61966-2.1"
-kMDItemUseCount                    = 8
-kMDItemUsedDates                   = (
-    "2025-10-03 18:30:00 +0000"
-)
-kMDItemWhereFroms                  = (
-    "https://citadel.cryptonitemit.in/files/2378893c721bd88ce6e99b644c4ef130/challenge.jpg? token=eyJ1c2VyX2lkIjoyMTUsInRlYW1faWQiOjY3LCJmaWxlX2lkIjo0NX0.aOEVfA.ITrIVbCALijLLz16Cv7L39lg5sM",
-    "https://citadel.cryptonitemit.in/challenges"
-)
-```
+  ```sh
+  mdls challenge.jpg
+  _kMDItemDisplayNameWithExtensions  = "challenge.jpg"
+  kMDItemAuthors                     = (
+      "kdj had a habit of hiding images within images"
+  )
+  kMDItemBitsPerSample               = 24
+  kMDItemColorSpace                  = "RGB"
+  kMDItemContentCreationDate         = 2025-10-04 12:40:00 +0000
+  kMDItemContentCreationDate_Ranking = 2025-10-04 00:00:00 +0000
+  kMDItemContentModificationDate     = 2025-10-04 12:40:01 +0000
+  kMDItemContentType                 = "public.jpeg"
+  kMDItemContentTypeTree             = (
+      "public.jpeg",
+      "public.image",
+      "public.data",
+      "public.item",
+      "public.content"
+  )
+  kMDItemDateAdded                   = 2025-10-04 12:40:00 +0000
+  kMDItemDisplayName                 = "challenge.jpg"
+  kMDItemDocumentIdentifier          = 0
+  kMDItemFSContentChangeDate         = 2025-10-04 12:40:01 +0000
+  kMDItemFSCreationDate              = 2025-10-04 12:40:00 +0000
+  kMDItemFSCreatorCode               = ""
+  kMDItemFSFinderFlags               = 0
+  kMDItemFSHasCustomIcon             = (null)
+  kMDItemFSInvisible                 = 0
+  kMDItemFSIsExtensionHidden         = 0
+  kMDItemFSIsStationery              = (null)
+  kMDItemFSLabel                     = 0
+  kMDItemFSName                      = "challenge.jpg"
+  kMDItemFSNodeCount                 = (null)
+  kMDItemFSOwnerGroupID              = 20
+  kMDItemFSOwnerUserID               = 501
+  kMDItemFSSize                      = 371263
+  kMDItemFSTypeCode                  = ""
+  kMDItemHasAlphaChannel             = 0
+  kMDItemInterestingDate_Ranking     = 2025-10-04 00:00:00 +0000
+  kMDItemKind                        = "JPEG image"
+  kMDItemLastUsedDate                = 2025-10-04 12:42:39 +0000
+  kMDItemLastUsedDate_Ranking        = 2025-10-04 00:00:00 +0000
+  kMDItemLogicalSize                 = 371263
+  kMDItemOrientation                 = 1
+  kMDItemPhysicalSize                = 380928
+  kMDItemPixelCount                  = 650880
+  kMDItemPixelHeight                 = 1017
+  kMDItemPixelWidth                  = 640
+  kMDItemProfileName                 = "sRGB IEC61966-2.1"
+  kMDItemUseCount                    = 8
+  kMDItemUsedDates                   = (
+      "2025-10-03 18:30:00 +0000"
+  )
+  kMDItemWhereFroms                  = (
+      "https://citadel.cryptonitemit.in/files/2378893c721bd88ce6e99b644c4ef130/challenge.jpg?token=eyJ1c2VyX2lkIjoyMTUsInRlYW1faWQiOjY3LCJmaWxlX2lkIjo0NX0.aOEVfA.ITrIVbCALijLLz16Cv7L39lg5sM",
+      "https://citadel.cryptonitemit.in/challenges"
+  )
+  ```
 - The `mdls` output shows
   ```sh
   kMDItemAuthors = (
@@ -147,6 +147,7 @@ kMDItemWhereFroms                  = (
 - `hidden.png` has been extracted from the JPEG file.
 - Use `open hidden.png` to view the flag.
   <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
+
   The exctracted file might not be a valid PNG or it might be corrupted.
 - Check what has actually been exctracted by running 
   ```sh
