@@ -5,7 +5,10 @@ They leave nothing but a single image, a relic carrying his final secret. Hidden
 
 ## Solution:
 
-- On opening the file attached in the challenge, it shows: <img width="640" height="1017" alt="image" src="https://github.com/user-attachments/assets/30ee5e21-3ab2-4af8-96a2-220206ddd7d7" />
+- On opening the file attached in the challenge, it shows:
+  
+  <img width="640" height="1017" alt="image" src="https://github.com/user-attachments/assets/30ee5e21-3ab2-4af8-96a2-220206ddd7d7" />
+  
 - As the the question is about metadata, check EXIF metadata by running `exiftool challenge.jpg` in the terminal.
   ```sh
   Last login: Sat Oct  4 17:30:48 on console
@@ -150,7 +153,6 @@ They leave nothing but a single image, a relic carrying his final secret. Hidden
   <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
 
   The exctracted file might not be a valid PNG or it might be corrupted.
-  <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
 - Check what has actually been exctracted by running 
   ```sh
   cd ~/Downloads
