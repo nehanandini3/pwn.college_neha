@@ -145,8 +145,7 @@ kMDItemWhereFroms                  = (
   PNG file should contain the flag!
   ```
 - `hidden.png` has been extracted from the JPEG file.
-- Use `open hidden.png` to view the flag.
-  <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
+- Use `open hidden.png` to view the flag. <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
 
 
   The exctracted file might not be a valid PNG or it might be corrupted.
