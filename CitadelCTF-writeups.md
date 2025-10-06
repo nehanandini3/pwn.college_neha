@@ -147,6 +147,7 @@ kMDItemWhereFroms                  = (
 - `hidden.png` has been extracted from the JPEG file.
 - Use `open hidden.png` to view the flag.
 - <img width="514" height="456" alt="image" src="https://github.com/user-attachments/assets/320fb246-4ce6-4c4b-802f-1df30dcf2380" />
+
   The exctracted file might not be a valid PNG or it might be corrupted.
 - Check what has actually been exctracted by running 
   ```sh
@@ -209,6 +210,7 @@ kMDItemWhereFroms                  = (
 - It means a valid PNG file was found and exctrated.
 - Run `open correct.png` to view the flag.
 - This leads to:
+  
   <img width="640" height="613" alt="image" src="https://github.com/user-attachments/assets/7cd596e6-d8c9-4b4e-b1b8-d851f9963aa2" />
 
 ## Flag: 
