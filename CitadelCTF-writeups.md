@@ -87,7 +87,7 @@ kMDItemWhereFroms                  = (
   - LSB (Least Significant Bit) steganography
 - First check if theres an appended data after the JPEG end.
 - For that, use `xxd challenge.jpg | tail -20`.
-- ```sh
+   ```sh
   nehanandini@Nehas-MacBook-Air ~ % xxd challenge.jpg | tail -20
   xxd: challenge.jpg: No such file or directory
   ```
@@ -161,7 +161,8 @@ kMDItemWhereFroms                  = (
 - `xxd hidden.png | head -3` checks if the file has a valid PNG header.
 - `strings hidden.png | grep -E "CTF{|flag{|citadel{|FLAG{"` looks for any flag formats existing.
 - The end of the file is checked by `xxd hidden.png | tail -10`.
-- ```sh
+- The terminal steps with commands and output are mentioned below.
+  ```sh
   nehanandini@Nehas-MacBook-Air Downloads % cd ~/Downloads
   nehanandini@Nehas-MacBook-Air Downloads % file hidden.png
   hidden.png: data
