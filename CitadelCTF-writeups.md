@@ -434,7 +434,158 @@ Connection: `nc chall_citadel.cryptonitemit.in 61234`
 
 - The challenge is the Collatz Conjecture challenge, as shown in Coco_Conjecture.pdf .
 - As mentioned in helped.md, first install `pwntools` by using the command `pip install pwntools`.
-- 
+- While trying to install `pwntools`, the following warning pops up.
+  ```sh
+  ModuleNotFoundError: No module named 'pwn'
+  nehanandini@Nehas-MacBook-Air ~ % pip3 install pwntools
+  error: externally-managed-environment
+
+  × This environment is externally managed
+  ╰─> To install Python packages system-wide, try brew install
+      xyz, where xyz is the package you are trying to
+      install.
+    
+      If you wish to install a Python library that isn't in Homebrew,
+      use a virtual environment:
+    
+      python3 -m venv path/to/venv
+      source path/to/venv/bin/activate
+      python3 -m pip install xyz
+    
+      If you wish to install a Python application that isn't in Homebrew,
+      it may be easiest to use 'pipx install xyz', which will manage a
+      virtual environment for you. You can install pipx with
+    
+      brew install pipx
+    
+      You may restore the old behavior of pip by passing
+      the '--break-system-packages' flag to pip, or by adding
+      'break-system-packages = true' to your pip.conf file. The latter
+      will permanently disable this error.
+    
+      If you disable this error, we STRONGLY recommend that you additionally
+      pass the '--user' flag to pip, or set 'user = true' in your pip.conf
+      file. Failure to do this can result in a broken Homebrew installation.
+    
+       Read more about this behavior here: <https://peps.python.org/pep-0668/>
+
+  note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or   OS, by passing --break-system-packages.
+  hint: See PEP 668 for the detailed specification.
+  ```
+- Use of socket version also works if `pwntools` cant be downloaded.
+- The following code attempt runs a long loop but doesnt return the flag.
+  ```sh
+  import socket
+
+  def collatz_steps(n):
+      steps = 0
+      while n != 1:
+          if n % 2 == 0:
+              n = n // 2
+          else:
+              n = 3 * n + 1
+          steps += 1
+      return steps
+
+  sock = socket.create_connection(('chall_citadel.cryptonitemit.in', 61234), timeout=10)
+
+  buffer = ""
+  round_count = 0
+
+  try:
+      while round_count < 270:  # 269 rounds + flag
+          data = sock.recv(4096).decode()
+          if not data:
+              break
+            
+          buffer += data
+          lines = buffer.split('\n')
+        
+          for line in lines[:-1]:  # All but the last (incomplete) line
+              line = line.strip()
+              if not line:
+                  continue
+                
+              print("Received:", line)
+            
+              if 'citadel{' in line:
+                  print("FLAG FOUND:", line)
+                  exit(0)
+            
+              if line.startswith('Round') and ':' in line:
+                  number_str = line.split(':')[1].strip()
+                  n = int(number_str)
+                  result = collatz_steps(n)
+                  print(f"Calculated: steps({n}) = {result}")
+                
+                  sock.sendall((str(result) + '\n').encode())
+                  print(f"Sent: {result}")
+                  round_count += 1
+        
+          buffer = lines[-1]
+        
+  except Exception as e:
+      print("Error:", e)
+    
+  sock.close()
+  ```
+- The following code runs and gives output at the end.
+  ```sh
+  import socket
+
+  def collatz_steps(n):
+      steps = 0
+      while n != 1:
+          if n % 2 == 0:
+              n = n // 2
+          else:
+              n = 3 * n + 1
+          steps += 1
+      return steps
+
+  sock = socket.create_connection(('chall_citadel.cryptonitemit.in', 61234), timeout=10)
+
+  buffer = ""
+  round_count = 0
+
+  try:
+      while round_count < 270:  # 269 rounds + flag
+          data = sock.recv(4096).decode()
+          if not data:
+              break
+            
+          buffer += data
+          lines = buffer.split('\n')
+
+          # Process complete lines
+          for line in lines[:-1]:  # All but the last (incomplete) line
+              line = line.strip()
+              if not line:
+                  continue
+                
+              print("Received:", line)
+            
+              if 'citadel{' in line:
+                  print("FLAG FOUND:", line)
+                  exit(0)
+            
+              if line.startswith('Round') and ':' in line:
+                  number_str = line.split(':')[1].strip()
+                  n = int(number_str)
+                  result = collatz_steps(n)
+                  print(f"Calculated: steps({n}) = {result}")
+                
+                  sock.sendall((str(result) + '\n').encode())
+                  print(f"Sent: {result}")
+                  round_count += 1
+        
+          buffer = lines[-1]
+        
+  except Exception as e:
+      print("Error:", e)
+    
+  sock.close()
+  ```
 
 ## Flag: 
 
@@ -730,7 +881,69 @@ After finding the backdoor and making your way to the next floor, you step into 
 
 ## Solution:
 
-- 
+- `cd ~/Downloads` to go over there first.
+- `chmod +x tameimpala` to make the remaining commands executable.
+- Keep docker open and run `docker run --platform linux/amd64 -it --rm -v $(pwd):/data ubuntu /data/tameimpala` on the terminal. It leads to the below.
+
+  <img width="1138" height="724" alt="image" src="https://github.com/user-attachments/assets/91ceeec5-227f-43c6-854a-0c33d40506f8" />
+
+- The first level `kevin wants you to sing your heart out, it could be some music to walk home by: `, type in `music to walk home by` to goto the next level.
+- The second level:
+
+  <img width="1134" height="726" alt="image" src="https://github.com/user-attachments/assets/8a7ce885-ef3b-4aa7-a9c1-dfde75c49036" />
+
+- Enter `8168008137` to go from 2nd level to the lavel level.
+- Level 1 is solved using `string` and Level 2 is solved by using basic disassembly.
+- The third level:
+
+  <img width="1132" height="800" alt="image" src="https://github.com/user-attachments/assets/ca548c1e-d420-43ab-b184-39b9327bd988" />
+
+- Execute the following python program to get the flag.
+  ```sh
+  encoded_data = [
+      0x00c9, 0x00de, 0x00fd, 0x00e0, 0x00e7, 0x00ea, 0x00f9, 0x0120,
+      0x00ff, 0x009c, 0x0121, 0x00fc, 0x009f, 0x0124, 0x00b7, 0x0118,
+      0x0135, 0x00bc, 0x0141, 0x00cc, 0x012d, 0x0148, 0x00d9, 0x0164,
+      0x015f, 0x0142, 0x00ef, 0x0154, 0x015d, 0x0100, 0x0175, 0x0160,
+      0x0103, 0x0107, 0x010b, 0x010f, 0x010b
+  ]
+
+  memory_bytes = [
+      # 0x2370: 03 07 0B 0F 0B 07 03 07 0B 0F 0B 07 03 07 0B 0F
+      0x03, 0x07, 0x0B, 0x0F, 0x0B, 0x07, 0x03, 0x07,
+      0x0B, 0x0F, 0x0B, 0x07, 0x03, 0x07, 0x0B, 0x0F,
+      # 0x2380: 0B 07 03 07 0B 0F 0B 07 03 07 0B 0F 0B 07 03 07
+      0x0B, 0x07, 0x03, 0x07, 0x0B, 0x0F, 0x0B, 0x07,
+      0x03, 0x07, 0x0B, 0x0F, 0x0B, 0x07, 0x03, 0x07,
+      # 0x2390: 8F 01 1C 01 83 01 1C 01 (but we only need 5 more bytes)
+      0x8F, 0x01, 0x1C, 0x01, 0x83
+  ]
+
+  def decode_flag():
+      flag = ""
+      for i in range(37):
+          # input_char[i] = (encoded_data[i] - 5 * i - memory_bytes[i]) / 2
+          input_char = (encoded_data[i] - (5 * i) - memory_bytes[i]) // 2
+        
+          if 32 <= input_char <= 126:
+              flag += chr(input_char)
+          else:
+              flag += f"[{input_char:02x}]"
+    
+      return flag
+
+  result = decode_flag()
+  print(f"Decoded flag: {result}")
+  print(f"Length: {len(result)}")
+
+  # The flag seems to be related to Tame Impala lyrics
+  # "for one more hour I can..." appears to be part of it
+  # Let me check what the complete flag should be
+  ```
+- The above program successfuly returns the flag, although not the full flag. It only gives `citadel{f0r_0n3_m0r3_h0ur_1_c4n_[-16]0"/[-16]`, `for one more hour i can rage` is a popular lyric so maybe the flag actually is `citadel{f0r_0n3_m0r3_h0ur_1_c4n_r4g3` by writing rage using a mixture of letters and numbers.
+- This flag is then typed in the terminal to see if it's correct.
+
+  <img width="1134" height="794" alt="image" src="https://github.com/user-attachments/assets/637cdd0e-19bd-46f3-ac4a-ecf53d6d625b" />
 
 ## Flag: 
 
