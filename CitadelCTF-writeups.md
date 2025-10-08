@@ -212,7 +212,7 @@ They leave nothing but a single image, a relic carrying his final secret. Hidden
       print('No PNG header found in the file')
   "
   ```
-- The above searchwa for the actual PNG header in `challenge.jpg`, extracts the PNG properly if found, saves it as `correct.png` and then checks if it's a valid PNG file.
+- The above searches for the actual PNG header in `challenge.jpg`, extracts the PNG properly if found, saves it as `correct.png` and then checks if it's a valid PNG file.
 - The output given by the terminal for the above is:
   ```sh
   PNG header found at position: 87530
