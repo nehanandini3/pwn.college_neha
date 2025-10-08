@@ -231,14 +231,6 @@ They leave nothing but a single image, a relic carrying his final secret. Hidden
 citadel{th1s_ch4ll3ng3_1s_f0r_th4t_0n3_ex1ft00l_4nd_b1nw4lk_enthus14st}
 ```
 
-### References:
-
-- 
-
-### Notes:
-
--
-
 
 
 # Randomly Accessed Memories
@@ -422,14 +414,6 @@ Challenge: https://github.com/evilcryptonite/daft-punk-archive
 citadel{w3_4r3_up_4ll_n1t3_t0_g1t_lucky}
 ```
 
-### References:
-
-- 
-
-### Notes:
-
-- 
-
 
 
 # Coco Conjecture
@@ -457,14 +441,6 @@ Connection: `nc chall_citadel.cryptonitemit.in 61234`
 ```
 citadel{k1ryu_c0c0_h4s_4_g0_4t_4n_uns0lv3d_m4th3m4t1cs_pr0bl3m}
 ```
-
-### References:
-
-- none
-
-### Notes:
-
-- 
 
 
 
@@ -495,14 +471,6 @@ The flag is hidden in these digital footprints across music platforms and split 
 ```
 citadel{c0mputers_st0pped_exchang1ng_1nf0rmat10n_n_started_shar1ng_st0r1es_n_then_they_were_n0where_t0_be_f0und}
 ```
-
-### References:
-
-- 
-
-### Notes:
-
-- 
 
 
 
@@ -748,14 +716,6 @@ Challenge: http://chall_citadel.cryptonitemit.in:32772/
 citadel{bl4ck51t3_4cc3ss_gr4nt3d}
 ```
 
-### References:
-
-- 
-
-### Notes:
-
-- 
-
 
 
 # Feels Like We Only Go Backwards
@@ -777,14 +737,6 @@ After finding the backdoor and making your way to the next floor, you step into 
 ```
 citadel{f0r_0n3_m0r3_h0ur_1_c4n_r4g3}
 ```
-
-### References:
-
-- 
-
-### Notes:
-
-- 
 
 
 
@@ -831,14 +783,6 @@ Challenge: https://databaseincursion.citadel.cryptonitemit.in
 ```
 citadel{wh3n_w1ll_y0u_f1nd_0u7_1f_175_5ql_0r_53qu3l?}
 ```
-
-### References:
-
-- 
-
-### Notes:
-
-- 
 
 
 
@@ -968,14 +912,6 @@ Near the gate to the next floor you come across a CAPTCHA verification test, but
 citadel{1m_3v3rywh3r3_1m_s0_jul1a}
 ```
 
-### References:
-
-- 
-
-### Notes:
-
-- 
-
 
 
 # Case Sensitivity
@@ -999,21 +935,49 @@ Connection: `nc chall_citadel.cryptonitemit.in 32770`
 
   <img width="1130" height="112" alt="image" src="https://github.com/user-attachments/assets/9741500e-bb12-46c0-b47a-99ffabf61de1" />
 
-- 
+- Try `flag` first as that is the required answer. The output is as the following.
 
+  <img width="1128" height="282" alt="image" src="https://github.com/user-attachments/assets/e821b071-3d15-41e0-b056-f9652430ba97" />
+
+- This hints to `flag` being very close.
+- All the following commands run[ `listdir('.')`, `open('FLAG').read()`, `system('cat FLAG')`, `getcwd()`, `eval('open("FLAG").read()')`, `__builtins__.open('FLAG').read()`, `os.listdir('.')` and `popen('cat FLAG').read()`] in the screenshot all give the same output, that they have been blocked.
+
+  <img width="1136" height="1690" alt="image" src="https://github.com/user-attachments/assets/dedb5f06-2d42-4c54-9c1e-6ce4aef7534f" />
+
+  <img width="1130" height="348" alt="image" src="https://github.com/user-attachments/assets/07ff9e63-900e-48eb-9ee2-daf0cbf6e9a6" />
+
+  <img width="1128" height="274" alt="image" src="https://github.com/user-attachments/assets/afa3dd5d-f628-47af-9062-11ba13d5c916" />
+
+- Run `environ['FLAG']` and `Print(Environ['FLAG'])` to get that `environ` and `print` are close.
+
+  <img width="1134" height="562" alt="image" src="https://github.com/user-attachments/assets/3625108c-fadb-47c7-a306-d105c3360ee0" />
+
+- Run different variations of `flag` as the challenge mentions being case-sensitive. `FLAG`, `Flag`, `fl4g`, and `flAG` are run. Only `Flag` and `flAG` are close.
+
+  <img width="1134" height="1110" alt="image" src="https://github.com/user-attachments/assets/b39f0771-6765-4da0-a0cb-9099c111ed16" />
+
+- `help`, `global`, `__class__`, `dir()` are also not allowed. It executed.  
+  <img width="1126" height="84" alt="image" src="https://github.com/user-attachments/assets/62a1de89-a42e-4dac-bc2f-c6c8359d3c19" />
+
+- `exec("0123456789abcdefghijklmnopqrstuvwxyz"[25] + "0123456789abcdefghijklmnopqrstuvwxyz"[27] + "0123456789abcdefghijklmnopqrstuvwxyz"[18] + "0123456789abcdefghijklmnopqrstuvwxyz"[23]     + "0123456789abcdefghijklmnopqrstuvwxyz"[29] + "(" + "0123456789abcdefghijklmnopqrstuvwxyz"[15] + "0123456789abcdefghijklmnopqrstuvwxyz"[21] + "0123456789abcdefghijklmnopqrstuvwxyz"      [10] + "0123456789abcdefghijklmnopqrstuvwxyz"[16] + ")")`  should execute `print(flag)` and give the flag.
+
+  <img width="1136" height="434" alt="image" src="https://github.com/user-attachments/assets/7ae5265f-6674-4d66-9b31-0ed51f64b733" />
+
+  In reality, it causes an error. The `NameError: name 'flag' is not defined`  means that the flag variable isn't named `flag`. The variable must be made of a different case.
+- `"0123456789abcdefghijklmnopqrstuvwxyz"[14] + "0123456789abcdefghijklmnopqrstuvwxyz"[23] + "0123456789abcdefghijklmnopqrstuvwxyz"[31] + "0123456789abcdefghijklmnopqrstuvwxyz"[18] +       "0123456789abcdefghijklmnopqrstuvwxyz"[27] + "0123456789abcdefghijklmnopqrstuvwxyz"[24] + "0123456789abcdefghijklmnopqrstuvwxyz"[23]` gives environ.
+- `exec("0123456789abcdefghijklmnopqrstuvwxyz"[25] + "0123456789abcdefghijklmnopqrstuvwxyz"[27] + "0123456789abcdefghijklmnopqrstuvwxyz"[18] + "0123456789abcdefghijklmnopqrstuvwxyz"[23]     + "0123456789abcdefghijklmnopqrstuvwxyz"[29] + "(" + "0123456789abcdefghijklmnopqrstuvwxyz"[14] + "0123456789abcdefghijklmnopqrstuvwxyz"[23] + "0123456789abcdefghijklmnopqrstuvwxyz"      [31] + "0123456789abcdefghijklmnopqrstuvwxyz"[18] + "0123456789abcdefghijklmnopqrstuvwxyz"[27] + "0123456789abcdefghijklmnopqrstuvwxyz"[24] + "0123456789abcdefghijklmnopqrstuvwxyz"       [23] + "['FLAG'])")` should execute `print(environ['FLAG'])`.
+
+   <img width="1140" height="264" alt="image" src="https://github.com/user-attachments/assets/e6d711f2-e422-4cbe-bf55-fc97cb953c33" />
+
+   The flag is printed.
+  
 ## Flag: 
 
 ```
 citadel{d34th_d035_n07_fr33_y0u_fr0m_7h3_gu17ar15t}
 ```
 
-### References:
 
-- 
-
-### Notes:
-
-- 
 
 
 
