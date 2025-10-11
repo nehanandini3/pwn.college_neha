@@ -79,6 +79,8 @@ pwn.college{Mr4weZUvl7waLftDdCarW1EkAiz.QX1cjM1wCO0AzNzEzW}
 
 - `PATH` can be used to add directories to the list so a program can be launched without having to mention its whole path every time.
 
+
+
 # Finding Commands 
 
 When you type the name of a command, something inside one of the many directories listed in your `$PATH` variable is what actually gets executed (of course, unless the command is a builtin!). But which file, precisely? You can find out with the aptly-named `which` command:
@@ -112,6 +114,7 @@ pwn.college{cFEKtns09CIc2o6htEs-xCDtMjs.01NzEzNxwCO0AzNzEzW}
 ### Notes:
 
 - `which` looks at each directory in $PATH in order and prints the first file it finds whose name matches the argument.
+
 
 
 # Adding Commands 
