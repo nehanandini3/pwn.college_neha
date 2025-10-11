@@ -18,8 +18,8 @@ Keep in mind: `/challenge/run` will be a child process of your shell, so you mus
 
 ## Solution:
 
-- This challenge requires to ensure the program can't find the `rm` command by using `PATH=""`
-- Run `/challenge/run` to get the flag
+- This challenge requires to ensure the program can't find the `rm` command by using `PATH=""`.
+- Run `/challenge/run` to get the flag.
   
 ## Flag:
 
@@ -34,6 +34,8 @@ pwn.college{II1sKZTMjX_b2GDMEWppB8vxbEl.QX2cDM1wCO0AzNzEzW}
 ### Notes:
 
 - `PATH` is a shell variable that stores a bunch of directory paths in which the shell searches for programs.
+
+
 
 # Setting PATH
 
@@ -60,8 +62,8 @@ Let's practice. This level's `/challenge/run` will run the `win` command via its
 
 ## Solution:
 
-- The challenge requires to overite `PATH` using `PATH=/challenge/more_commands`
-- Run `/challenge/run` to get the flag 
+- The challenge requires to overite `PATH` using `PATH=/challenge/more_commands`.
+- Run `/challenge/run` to get the flag. 
 
 ## Flag:
 
@@ -75,7 +77,7 @@ pwn.college{Mr4weZUvl7waLftDdCarW1EkAiz.QX1cjM1wCO0AzNzEzW}
 
 ### Notes:
 
-- `PATH` can be used to add directories to the list so a program can be launched without having to mention its whole path every time
+- `PATH` can be used to add directories to the list so a program can be launched without having to mention its whole path every time.
 
 # Finding Commands 
 
@@ -93,9 +95,9 @@ In this challenge, we added a `win` command somewhere in your `$PATH`, but it wo
 
 ## Solution:
 
-- This challenge requires to find the directory in which the win command is situated by using ` which win`
-- The found directory will be the same directory as the flag
-- Use `cat /challenge/paths/159/flag` to get the flag, where `/challenge/paths/159/` is the directory found previously 
+- This challenge requires to find the directory in which the win command is situated by using ` which win`.
+- The found directory will be the same directory as the flag.
+- Use `cat /challenge/paths/159/flag` to get the flag, where `/challenge/paths/159/` is the directory found previously. 
 
 ## Flag:
 
@@ -109,7 +111,7 @@ pwn.college{cFEKtns09CIc2o6htEs-xCDtMjs.01NzEzNxwCO0AzNzEzW}
 
 ### Notes:
 
-- `which` looks at each directory in $PATH in order and prints the first file it finds whose name matches the argument
+- `which` looks at each directory in $PATH in order and prints the first file it finds whose name matches the argument.
 
 
 # Adding Commands 
@@ -138,22 +140,53 @@ Now, go and `win`!
 
 ## Solution:
 
+- `mkdir /tmp/pwn` to create a dictionary.
+- `cd /tmp/pwn` navigates to the created dictionary.
+- `echo "/bin/cat /flag" > win` creates a script that uses absolute path to `cat` to read the flag file.
+- `chmod +x win` gives the script execute permissions so it can be run as a command.
+- `PATH="/tmp/pwn:$PATH" /challenge/run` runs the program with modified changes.
+- The flag is printed.
+
 ## Flag:
+
+```sh
+pwn.college{wn2LW-a64HK3rzDNxUfWYidbQg9.QX2cjM1wCO0AzNzEzW}
+```
 
 ### References:
 
 - none
 
 ### Notes:
+
+- A new directory can be added to a path rather than wiping and redefining it every time by using `PATH="/new/directory:$PATH"`.
+
+
 
 # Hijacking Commands 
 
+Armed with your knowledge, you can now carry out some shenanigans. This challenge is almost the same as the first challenge in this module. Again, this challenge will delete the flag using the `rm` command. But unlike before, it will not print anything out for you.
+
+How can you solve this? You know that `rm` is searched for in the directories listed in the `PATH` variable. You have experience creating the `win` command when the previous challenge needed it. What else can you create?
+
 ## Solution:
 
+- `mkdir /tmp/pwn` to create a dictionary.
+- `echo "/bin/cat /flag" > /tmp/pwn/rm` creates a fake `rm` that actually reads the flag.
+- `chmod +x /tmp/pwn/rm` to make it executable.
+- `PATH="/tmp/pwn:$PATH" /challenge/run` is run with the fake `rm` in PATH.
+- The flag is printed.
+
 ## Flag:
+
+```sh
+pwn.college{stQNWfSUYgNu8jM3jdISsCDpaT4.QX3cjM1wCO0AzNzEzW}
+```
 
 ### References:
 
 - none
 
 ### Notes:
+
+- Decoy commands can be placed to trick the shell search into finding the wrong commands.
