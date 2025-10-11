@@ -70,12 +70,13 @@ In this challenge, you need to chain the programs `/challenge/first-success` and
 
 ## Solution:
 
-Describe your thought process and solve, write as much as possible with steps:
+- `/challenge/first-success && /challenge/second` is run so that `/challenge/second` is run if `/challenge/first-success` succeeds in running.
+- The flag is printed. 
 
 ## Flag: 
 
 ```
-pwn.college{}
+pwn.college{YNn2LjJOh0M7Ae2UFEJ7N0KZvWI.0lM0MDOxwCO0AzNzEzW}
 ```
 
 ### References:
@@ -84,7 +85,8 @@ pwn.college{}
 
 ### Notes:
 
-Include things you learnt, alternate methods or mistakes you made while solving
+- `&&` operator runs the second command (only if the first command succeeds i.e. exited with code 0).
+
 
 
 
