@@ -320,10 +320,10 @@ pwn.college{cDnfJhssUcYU5_V6Gs5OaD20W21.QX3QDO0wCO0AzNzEzW}
 ### Notes:
 
 - `bg` command allows to resume processes in the background by giving the user their shell back to invoke more commands while allowing the process to keep running as well.
-- T: process is suspended due to Ctrl-Z
-- S: sleeping while waiting for input
-- R: it's actively running
-- +: it's in the foreground
+- `T`: process is suspended due to Ctrl-Z
+- `S`: sleeping while waiting for input
+- `R`: it's actively running
+- `+`: it's in the foreground
 
 
 
