@@ -79,9 +79,29 @@ pwn.college{Mr4weZUvl7waLftDdCarW1EkAiz.QX1cjM1wCO0AzNzEzW}
 
 # Finding Commands 
 
+When you type the name of a command, something inside one of the many directories listed in your `$PATH` variable is what actually gets executed (of course, unless the command is a builtin!). But which file, precisely? You can find out with the aptly-named `which` command:
+```sh
+hacker@dojo:~$ which cat
+/bin/cat
+hacker@dojo:~$ /bin/cat /flag
+YEAH
+hacker@dojo:~$
+```
+Mirroring what the shell does when searching for commands, `which` looks at each directory in `$PATH` in order and prints the first file it finds whose name matches the argument you passed.
+
+In this challenge, we added a `win` command somewhere in your `$PATH`, but it won't give you the flag. Instead, it's in the same directory as a `flag` file that we made readable by you! You must find `win` (with the which command), and `cat` the flag out of that directory!
+
 ## Solution:
 
+- This challenge requires to find the directory in which the win command is situated by using ` which win`
+- The found directory will be the same directory as the flag
+- Use `cat /challenge/paths/159/flag` to get the flag, where `/challenge/paths/159/` is the directory found previously 
+
 ## Flag:
+
+```
+pwn.college{cFEKtns09CIc2o6htEs-xCDtMjs.01NzEzNxwCO0AzNzEzW}
+```
 
 ### References:
 
@@ -89,7 +109,32 @@ pwn.college{Mr4weZUvl7waLftDdCarW1EkAiz.QX1cjM1wCO0AzNzEzW}
 
 ### Notes:
 
+- `which` looks at each directory in $PATH in order and prints the first file it finds whose name matches the argument
+
+
 # Adding Commands 
+
+Recall our example from the previous level:
+```sh
+hacker@dojo:~$ ls /home/hacker/scripts
+goodscript	badscript	okayscript
+hacker@dojo:~$ PATH=/home/hacker/scripts
+hacker@dojo:~$ goodscript
+YEAH! This is the best script!
+hacker@dojo:~$
+```
+What we see here, of course, is the `hacker` making the shell more useful for themselves by bringing their own commands to the party. Over time, you might amass your own elegant tools. Let's start with `win`!
+
+Previously, the `win` command that `/challenge/run` executed was stored in `/challenge/more_commands`. This time, `win` does not exist! Recall the final level of `Chaining Commands`, and make a shell script called `win`, add its location to the `PATH`, and enable `/challenge/run` to find it!
+
+Hint: `/challenge/run` runs as `root` and will call `win`. Thus, `win` can simply cat the flag file. Again, the `win` command is the only thing that `/challenge/run` needs, so you can just overwrite `PATH` with that one directory. But remember, if you do that, your `win` command won't be able to find `cat`.
+
+You have three options to avoid that:
+
+1. Figure out where the `cat` program is on the filesystem. It must be in a directory that lives in the `PATH` variable, so you can print the variable out (refer to `Shell Variables` to remember how!), and go through the directories in it (recall that the different entries are separated by `:`), find which one has `cat` in it, and invoke `cat` by its absolute path.
+2. Set a `PATH` that has the old directories plus a new entry for wherever you create `win`.
+3. Use `read` (again, refer to `Shell Variables`) to read `/flag`. Since `read` is a builtin functionality of `bash`, it is unaffected by `PATH` shenanigans.
+Now, go and `win`!
 
 ## Solution:
 
