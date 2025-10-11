@@ -382,12 +382,22 @@ This level extends the previous level by requesting more radical permission chan
 
 ## Solution:
 
-Describe your thought process and solve, write as much as possible with steps:
-
+- `/challenge/run` is first run to see what the program expects.
+- `chmod u=,g=wx,o= /challenge/pwn` for Round 1 to set no permissions for user, write and execute for group and no permissions for others.
+- `chmod u=,g=rx,o=rw /challenge/pwn` for Round 2 to set no permissions for user, read and execute for group (removing write, adding read) and read and write for others.
+- `chmod u=rw,g=,o=wx /challenge/pwn` for Round 3 to set read and write for user, no permissions for group and write and execute for others.
+- `chmod u=rw,g=x,o=rx /challenge/pwn` for Round 4 to set read and write for user (unchanged), execute only for group and read and execute for others.
+- `chmod u=rx,g=w,o=rw /challenge/pwn` for Round 5 to set read and execute for user (losing write), write only for group (losing execute) and read and write for others (losing execute).
+- `chmod u=,g=r,o=r /challenge/pwn` for Round 6 to set no permissions for user, read only for group and read only for others.
+- `chmod u=rw,g=,o=x /challenge/pwn` for Round 7 to set read and write for user, no permissions for group and execute only for others.
+- `chmod u=wx,g=r,o= /challenge/pwn` for Round 8 to set write and execute for user (losing read), read only for group and no permissions for others.
+- `chmod a+rwx /flag` to add read permission so the flag can be read.
+- `cat /flag` prints the flag.
+  
 ## Flag: 
 
 ```
-pwn.college{}
+pwn.college{4NIz3IUF0SNRr1AJMMZ80rwlrS3.QXzETO0wCO0AzNzEzW}
 ```
 
 ### References:
@@ -396,7 +406,59 @@ pwn.college{}
 
 ### Notes:
 
-Include things you learnt, alternate methods or mistakes you made while solving
+- The `=` operator completely replaces permissions for the specified category.
+- Use commas(`,`) to set different permissions for different categories in one command.
+- Later operations can override earlier ones in the same command thus order matters.
+- When used after `=`, the `-` means "no permissions".
+- This is NOT the same as if it appeared directly after the `u`, `g`, or `o`, in which case, it would cause specific bits to be removed, not everything.
+
+
+
+# The SUID Bit
+
+As you explored in the previous module, there are many cases in which non-root users need elevated access to do certain system tasks. The system admin can't be there to give them the password every time a user wanted to do a task that only root/sudoers can do. Instead, the "Set User ID" (SUID) permissions bit allows the user to run a program as the owner of that program's file.
+
+This is actually the exact mechanism used to let the challenge programs you run read the flag or, outside of pwn.college, to enable system administration tools such as su, sudo, and so on. The permissions of a file with SUID look like this:
+
+hacker@dojo:~$ ls -l /usr/bin/sudo
+-rwsr-xr-x 1 root root 232416 Dec 1 11:45 /usr/bin/sudo
+hacker@dojo:~$
+The s part in place of the executable bit means that the program is executable with SUID. It means that, regardless of what user runs the program (as long as they have executable permissions), the program will execute as the owner user (in this case, the root user).
+
+As the owner of a file, you can set a file's SUID bit by using chmod:
+
+chmod u+s [program]
+But be careful! Giving the SUID bit to an executable owned by root can give attackers a possible attack vector to become root. You will learn more about this in the Program Misuse module.
+
+Now, we are going to let you add the SUID bit to the /challenge/getroot program in order to spawn a root shell for you to cat the flag yourself!
+
+## Solution:
+
+- `ls -l /challenge/getroot` to check the current permissions of the challenge program.
+- `chmod u+s /challenge/getroot` to add SUID bit to the program.
+- `ls -l /challenge/getroot` to verify the SUID bit is set.
+- It shows `rws` instead of `rwx` in user permissions.
+- `/challenge/getroot` is run to get the flag.
+- `cat /flag` prints the flag.
+
+## Flag: 
+
+```
+pwn.college{82h-2U2L0hMQA3ziGYTUROUvK4h.QXzEjN0wCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- The "Set User ID" (SUID) permissions bit allows the user to run a program as the owner of that program's file.
+- SUID only affects executable files.
+- The program runs with the file owner's UID, not necessarily root.
+- The `s` part in place of the executable bit means that the program is executable with SUID.
+- It means that, regardless of what user runs the program (as long as they have executable permissions), the program will execute as the owner user (in this case, the root user).
+- SUID is crucial for many legitimate system functions but must be used carefully.
 
 
 
