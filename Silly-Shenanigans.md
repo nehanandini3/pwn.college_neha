@@ -234,3 +234,54 @@ pwn.college{EeqrRcgNOM1XP-ON0SK4yD5vR5h.0FOzEzNxwCO0AzNzEzW}
 
 - The `ps aux` command shows all running processes with their full command lines, including any arguments passed to them.
 
+
+
+# Snooping on Configurations
+
+Even without making mistakes, users might inadvertently leave themselves at risk. For example, many files in a typical user's home directory are world-readable by default, despite frequently being used to store sensitive information. Believe it or not, your `.bashrc` is world-readable unless you explicitly change it!
+
+```sh
+hacker@dojo:~$ ls -l ~/.bashrc
+-rw-r--r-- 1 hacker hacker 148 Jun  7 05:56 /home/hacker/.bashrc
+hacker@dojo:~$
+```
+You might think, "Hey, at least it's not world-writable by default"! But even world-readable, it can do damage. Since `.bashrc` is processed by the shell at startup, that is where people typically put initializations for any environment variables they want to customize. Most of the time, this is innocuous things like `PATH`, but sometimes people store API keys there for easy access. For example, in this challenge:
+
+```sh
+zardus@dojo:~$ echo "FLAG_GETTER_API_KEY=sk-XXXYYYZZZ" > ~/.bashrc
+```
+Afterwards, Zardus can easily refer to the API key. In this level, users can use a valid API key to get the flag:
+
+```sh
+zardus@dojo:~$ flag_getter --key $FLAG_GETTER_API_KEY
+Correct API key! Do you want me to print the key (y/n)? y
+pwn.college{HACKED}
+zardus@dojo:~$
+```
+Naturally, Zardus stores his key in `.bashrc`. Can you steal the key and get the flag?
+
+NOTE: When you get the API key, just execute `flag_getter` as the `hacker` user. This challenge's `/challenge/victim` is just for theming: you don't need to use it.
+
+## Solution:
+
+- `cat /home/zardus/.bashrc` to read `zarcus`'s `.bashrc` file.
+- API key is found in this line `FLAG_GETTER_API_KEY=sk-2078221616`.
+- `flag_getter --key sk-2078221616` is executed.
+- It asks "Do you want me to print the key (y/n)?". Enter `y`.
+- The flag is printed.
+
+## Flag: 
+
+```
+pwn.college{kWuHJqVMjzlvlgBFy7L8DxOKL38.0lM0EzNxwCO0AzNzEzW}
+```
+
+### References:
+
+- none
+
+### Notes:
+
+- Environment variables stored in `.bashrc` are visible to all users who can read the file, exposing API keys, passwords, and other secrets.
+
+
