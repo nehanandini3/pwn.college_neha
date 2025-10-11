@@ -87,6 +87,184 @@ pwn.college{YNn2LjJOh0M7Ae2UFEJ7N0KZvWI.0lM0MDOxwCO0AzNzEzW}
 
 - `&&` operator runs the second command (only if the first command succeeds i.e. exited with code 0).
 
+# Handling Failure 
 
+You just learned about the `&&` operator, which runs the second command only if the first succeeds. Now let's learn about its opposite: the `||` operator allows you to run a second command only if the first command fails (exits with a non-zero code). This is called the "OR" operator because either the first command succeeds OR the second command will run.
+
+Here's the syntax:
+```sh
+hacker@dojo:~$ command1 || command2
+```
+This means: "Run command1, and IF it fails, then run command2."
+
+Some examples:
+```sh
+hacker@dojo:~$ touch /file || echo "touch failed, so this runs"
+touch: cannot touch '/file': Permission denied
+touch failed, so this runs
+hacker@dojo:~$ touch /home/hacker/file || echo "this will NOT run"
+hacker@dojo:~$
+```
+The `||` operator is super useful for providing fallback commands or error handling!
+
+In this challenge, you need to chain `/challenge/first-failure` and `/challenge/second` using the `||` operator. Go for it!
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Your First Shell Script 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Redirecting Script Output 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Executable Shell Scripts 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Understanding Shebangs 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Scripting with Arguments 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Scripting with Conditionals 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Sripting with Default Cases 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Scripting with Multiple Conditions 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
+
+# Reading Shell Scripts 
+
+## Solution:
+
+## Flag: 
+
+```
+
+```
+
+### References:
+
+- none
+
+### Notes:
 
 
